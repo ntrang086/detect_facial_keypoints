@@ -30,8 +30,8 @@ __Part 5__ : Enabling the system to work on video, i.e. doing Parts 3 & 4 on vid
 1. Clone the repository, and navigate to the downloaded folder.
 
 ```
-git clone https://github.com/ntrang086/detect\_facial\_keypoints.git
-cd AIND-CV-FacialKeypoints
+git clone https://github.com/ntrang086/detect_facial_keypoints.git
+cd detect_facial_keypoints
 ```
 
 2. Create and activate a new environment with Python 3.5 and the `numpy` package.
