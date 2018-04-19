@@ -8,9 +8,8 @@ from pandas.io.parsers import read_csv
 from sklearn.utils import shuffle
 
 def load_data(test=False):
-    """
-    Loads data from FTEST if *test* is True, otherwise from FTRAIN.
-    Important that the files are in a `data` directory
+    """Load data from FTEST if *test* is True, otherwise from FTRAIN.
+    Important that the files are in a `data` directory.
     """  
     FTRAIN = 'data/training.csv'
     FTEST = 'data/test.csv'
@@ -38,9 +37,7 @@ def load_data(test=False):
     return X, y
 
 def plot_data(img, landmarks, axis):
-    """
-    Plot image (img), along with normalized facial keypoints (landmarks)
-    """
+    """Plot image (img), along with normalized facial keypoints (landmarks)."""
     axis.imshow(np.squeeze(img), cmap='gray') # plot the image
     landmarks = landmarks * 48 + 48 # undo the normalization
     # Plot the keypoints
@@ -50,14 +47,15 @@ def plot_data(img, landmarks, axis):
         c='c', 
         s=40)
 
+
 def plot_keypoints(img_path, 
-                  face_cascade=cv2.CascadeClassifier('haarcascade_frontalface_alt.xml'),
+                  face_cascade=cv2.CascadeClassifier('detector_architectures/haarcascade_frontalface_default.xml'),
                   model_path='my_model.h5'):
-    # TODO: write a function that plots keypoints on arbitrary image containing human
+    """Plot keypoints on arbitrary image containing human."""
     img = cv2.imread(img_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
-    fig = plt.figure(figsize=(5,5))
+    fig = plt.figure(figsize=(9,9))
     ax = fig.add_subplot(1, 1, 1, xticks=[], yticks=[])
     ax.imshow(cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB))
 
@@ -67,7 +65,16 @@ def plot_keypoints(img_path,
         plt.title('too many faces detected')
         for (x,y,w,h) in faces:
             rectangle = cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,0),2)
-            ax.imshow(cv2.cvtColor(rectangle, cv2.COLOR_BGR2RGB))
+            #ax.imshow(cv2.cvtColor(rectangle, cv2.COLOR_BGR2RGB))
+            bgr_crop = img[y:y+h, x:x+w] 
+            orig_shape_crop = bgr_crop.shape
+            gray_crop = cv2.cvtColor(bgr_crop, cv2.COLOR_BGR2GRAY)
+            resize_gray_crop = cv2.resize(gray_crop, (96, 96)) / 255.
+            model = load_model(model_path)
+            landmarks = np.squeeze(model.predict(np.expand_dims(np.expand_dims(resize_gray_crop, axis=-1), axis=0)))
+            ax.scatter(((landmarks[0::2] * 48 + 48)*orig_shape_crop[0]/96)+x, 
+                       ((landmarks[1::2] * 48 + 48)*orig_shape_crop[1]/96)+y, 
+                       marker='o', c='c', s=10)
     elif len(faces) == 1:
         plt.title('one face detected')
         x,y,w,h = faces[0]
@@ -82,3 +89,7 @@ def plot_keypoints(img_path,
                    ((landmarks[1::2] * 48 + 48)*orig_shape_crop[1]/96)+y, 
                    marker='o', c='c', s=40)
     plt.show()
+
+
+if __name__ == "__main__":
+    plot_keypoints('images/obamas4.jpg')
