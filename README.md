@@ -1,7 +1,7 @@
 [//]: # (Image References)
 
 [image1]: ./images/obamas_with_keypoints.png "Facial Keypoint Detection"
-[image2]: ./images/facial_keypoint_test.gif "Hide identity"
+[image2]: ./images/laptop_blurer_example.gif "Hide identity"
 [image3]: ./images/laptop_filterring.gif "Real-time Filtering"
 
 # Facial Keypoint Detection and Real-time Filtering
