@@ -1,27 +1,40 @@
 [//]: # (Image References)
 
 [image1]: ./images/obamas_with_keypoints.png "Facial Keypoint Detection"
+[image2]: ./images/facial_keypoint_test.gif "Hide identity"
+[image3]: ./images/laptop_filterring.gif "Real-time Filtering"
 
 # Facial Keypoint Detection and Real-time Filtering
 
 ## Introduction
 
-Build an end-to-end facial keypoint recognition system using computer vision techniques and deep learning. Facial keypoints include points around the eyes, nose, and mouth on any face and are used in many applications, from facial tracking to emotion recognition. The system can take in any image or video containing faces and identify the location of each face and their facial keypoints, as shown below. The sytem can also do filtering and put sunglasses above the eyes. 
+Build an end-to-end facial keypoint recognition system using computer vision techniques and deep learning. Facial keypoints include points around the eyes, nose, and mouth on any face and are used in many applications, from facial tracking to emotion recognition. The system can take in any image or video containing faces and identify the location of each face and their facial keypoints, as shown below. 
 
 ![Facial Keypoint Detection][image1]
 
-The project is divided into a few main parts in one Python notebook:
+The system can hide the identity of individuals on an image or video
 
-__Part 1__ : Investigating OpenCV, pre-processing (de-noising, blurring, edge detection, etc.), and face detection
+![Hide identity][image2]
 
-__Part 2__ : Training a Convolutional Neural Network to detect facial keypoints
+It can also do filtering on an image or video and put sunglasses above the eyes. 
 
-__Part 3__ : Putting parts 1 and 2 together to identify facial keypoints on any image
+![Real-time Filtering][image3]
 
-__Part 4__ : Adding a filter using facial keypoints
+The project is divided into four main parts in one Python notebook:
 
-__Part 5__ : Enabling the system to work on video, i.e. doing Parts 3 & 4 on video
+__Part 1__: Investigating OpenCV, pre-processing (de-noising, blurring, edge detection, etc.), and face detection
 
+__Part 2__: Training a Convolutional Neural Network to detect facial keypoints
+
+__Part 3__: Putting parts 1 and 2 together to identify facial keypoints on any image or video
+
+__Part 4__: Adding a filter using facial keypoints to an image and a video
+
+
+## Code
+
+* `CV_project.ipynb` - The main code to detect facial keypoints and do real-time filtering
+* `utils.py` - Helper code to load and plot keypoints
 
 ## Setup
 
@@ -82,8 +95,25 @@ pip install keras -U
 pip install -r requirements.txt
 ```
 
-### Data
-The data is in the subdirectory `data`. Unzip the training and test data (in that same location). The data is also available on [Kaggle](https://www.kaggle.com/c/facial-keypoints-detection/data).
+7. Troubleshoot if OpenCV throws an error when trying to run a laptop's camera on Linux. See [here](https://stackoverflow.com/questions/40207011/opencv-not-working-properly-with-python-on-linux-with-anaconda-getting-error-th?answertab=votes#tab-top) for more detail.
+
+	- __Remove OpenCV__:
+	```
+	conda remove opencv
+	```
+	- __Update Anaconda__: 
+	```
+	conda update conda
+	```
+	- __Reinstall OpenCV as follows__: 
+	```
+	conda install --channel menpo opencv
+	```
+
+## Data
+
+* `data` subdirectory contains the data needed for facial keypoint detection. Unzip the training and test data (in that same location). The data is also available on [Kaggle](https://www.kaggle.com/c/facial-keypoints-detection/data).
+* `detector_architectures` subdirectory: We use OpenCV's implementation of [Haar feature-based cascade classifiers]((http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html)) to detect human faces in images. OpenCV provides many pre-trained face detectors, stored as XML files on [github](https://github.com/opencv/opencv/tree/master/data/haarcascades). Some of these detectors have been downloaded and stored in the `detector_architectures` subdirectory.
 
 ## Run
 
