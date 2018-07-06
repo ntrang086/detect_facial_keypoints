@@ -20,17 +20,6 @@ It can also do filtering on an image or video and put sunglasses above the eyes.
 
 ![Real-time Filtering][image3]
 
-The project is divided into four main parts in one Python notebook:
-
-__Part 1__: Investigating OpenCV, pre-processing (de-noising, blurring, edge detection, etc.), and face detection
-
-__Part 2__: Training a Convolutional Neural Network to detect facial keypoints
-
-__Part 3__: Putting parts 1 and 2 together to identify facial keypoints on any image or video
-
-__Part 4__: Adding a filter using facial keypoints to an image and a video
-
-
 ## Keras and PyTorch Implementation
 
 The project is implemented in both Keras and PyTorch. Detailed instructions (setup, data, etc.) and code for each framework are available in the [keras](https://github.com/ntrang086/detect_facial_keypoints/tree/master/keras) and [pytorch](https://github.com/ntrang086/detect_facial_keypoints/tree/master/pytorch) folders.
